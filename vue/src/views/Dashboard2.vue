@@ -2,10 +2,45 @@
   <Breadcrumb :paths="['Inicio']" />
   <slot></slot>
   <div>
+    <div class="xl:hidden block sm:w-full md:w-full">
+      <div class="border border-gray-400 py-1 px-2">
+        Leyenda de Colcres
+      </div>
+      <div class="flex gap-2.5 mt-2">
+        <div class="w-[80px] h-[15px] bg-[#00e396]"></div>
+        <div class="w-[80px] h-[15px] bg-[#00e396]"></div>
+        <div class="text-[12px] text-gray-600">
+          En Proceso
+        </div>
+      </div>
+      <div class="flex gap-2.5">
+        <div class="w-[80px] h-[15px] bg-[#008ffb]"></div>
+        <div class="w-[80px] h-[15px] bg-[#008ffb]"></div>
+        <div class="text-[12px] text-gray-600">
+          Levantada
+        </div>
+      </div>
+      <div class="flex gap-2.5">
+        <div class="w-[80px] h-[15px] bg-[#feb019]"></div>
+        <div class="w-[80px] h-[15px] bg-[#feb019]"></div>
+        <div class="text-[12px] text-gray-600">
+          Por Iniciar
+        </div>
+      </div>
+      <div class="text-left flex flex-col font-thin text-[14px] mt-2" style="width:100%">
+        <div class="black-box  mb-2 text-black h-[90px]">
+          Lorem ipsum dolor sit amet, conseasdfctetur adipiscing elit. Nemper odio vitae placerat.
+        </div>
+        <div class="black-box  mb-2 text-black h-[90px]">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nemper odio vitae placerat. 
+        </div>
+      </div>
+
+    </div>
     <div class="flex gap-2 text-center flex-col xl:flex-row">
 
       <div class="block align-center gap-2 xl:w-9/12 xl:flex xl:pt-28">
-        <div class="xl:w-2/12 sm:w-full md:w-full xl:mb-0 mb-4">
+        <div class="xl:w-2/12 sm:w-full md:w-full xl:mb-0 mb-4 mt-8 xl:mt-0">
           <div class=" border border-gray-400 py-1 px-2">
             Filtros
           </div>
@@ -34,14 +69,14 @@
           </div>
         </div>
         <div class="xl:w-10/12 sm:w-full md:w-full ">
-          <div class=" border border-gray-400 py-1 px-2">
+          <div class=" border border-gray-400 py-1 px-2 mt-8 xl:mt-0">
             Evolucion Semanal de Cant. Restriciones x Estado
           </div>
           <BarChart2 :tipo=1 :chartData="barData" :chartOptions="barOptions" :periodos=graph2_data :filterHidden=filterHidden
             @emitFilters="updateFilters" @removeFilters="removeFilters" :width="'100%'" :height="'185px'" />
         </div>
       </div>
-      <div class="xl:w-3/12 sm:w-full md:w-full">
+      <div class="xl:block hidden xl:w-3/12 sm:w-full md:w-full">
         <div class="border border-gray-400 py-1 px-2">
           Leyenda de Colcres
         </div>
