@@ -15,7 +15,7 @@
             <router-view />
           </div>
         </div> -->
-        <div class="px-12 sm:px-4 pt-16 overflow-y-auto">
+        <div class="px-12 sm:px-4 pt-16 overflow-y-auto w-full">
           <router-view />
         </div>
       </div>  
