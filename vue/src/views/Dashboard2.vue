@@ -3,28 +3,28 @@
   <slot></slot>
   <div>
   <div class="flex gap-2 text-center flex-col xl:flex-row">
-      <div class="xl:w-2/12 sm:w-full md:w-full">
+      <div class="xl:w-2/12 sm:w-full md:w-full mb-8">
       <div class=" border border-gray-400 py-1 px-2 mb-4">
         Filtros
       </div>
-      <div class="text-[14px] font-thin text-left">
+      <div class="text-[16px] font-thin text-left w-4/12 xl:w-full">
         <div>
           <label class="font-bold">Proyocto</label>
-          <select id="filter1" name="filter1" class="border border-gray-400 w-[130px] pt-1 my-1 sm:bg-smbackcolor"
+          <select id="filter1" name="filter1" class="border border-gray-400 w-full pt-1 my-1 sm:bg-smbackcolor"
             :value="selectedFilter1" v-bind:onChange="filter1">
             <option v-for="(item, index) in projectList" :value="index" :key="index">{{ item }}</option>
           </select>
         </div>
         <div>
           <label class="font-bold">Fronto</label>
-          <select id="filter2" name="filter2" class="border border-gray-400 w-[130px] pt-1 my-1 sm:bg-smbackcolor"
+          <select id="filter2" name="filter2" class="border border-gray-400 w-full pt-1 my-1 sm:bg-smbackcolor"
             :value="selectedFilter1"  v-bind:onChange="filter1">
             <option v-for="(item, index) in codeproject" :value="index" :key="index">{{ item }}</option>
           </select>
         </div>
         <div>
           <label class="font-bold">Fasa</label>
-          <select id="filter2" name="filter2" class="border border-gray-400 w-[130px] pt-1 my-1 sm:bg-smbackcolor"
+          <select id="filter2" name="filter2" class="border border-gray-400 w-full pt-1 my-1 sm:bg-smbackcolor"
             :value="selectedFilter1"  v-bind:onChange="filter1">
             <option v-for="(item, index) in codeproject" :value="index" :key="index">{{ item }}</option>
           </select>
