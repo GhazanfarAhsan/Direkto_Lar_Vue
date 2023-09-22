@@ -3,28 +3,63 @@
   <slot></slot>
   <div>
   <div class="flex gap-2 text-center flex-col xl:flex-row">
+      <div class="block xl:w-3/12 xl:hidden sm:w-full md:w-full">
+        <div class="border border-gray-400 py-1 px-2">
+          Leyenda de Colcres
+        </div>
+        <div class="flex gap-2.5 mt-2">
+          <div class="w-[80px] h-[15px] bg-[#00e396]"></div>
+          <div class="w-[80px] h-[15px] bg-[#00e396]"></div>
+          <div class="text-[12px] text-gray-600">
+            En Proceso
+          </div>
+        </div>
+        <div class="flex gap-2.5">
+          <div class="w-[80px] h-[15px] bg-[#008ffb]"></div>
+          <div class="w-[80px] h-[15px] bg-[#008ffb]"></div>
+          <div class="text-[12px] text-gray-600">
+            Levantada
+          </div>
+        </div>
+        <div class="flex gap-2.5">
+          <div class="w-[80px] h-[15px] bg-[#feb019]"></div>
+          <div class="w-[80px] h-[15px] bg-[#feb019]"></div>
+          <div class="text-[12px] text-gray-600">
+            Por Iniciar
+          </div>
+        </div>
+        <div class="text-left flex flex-col font-thin text-[14px]" style="width:100%">
+          <div class="black-box">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          </div>
+          <div class="black-box mt-2 mb-2">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </div>
+        </div>
+
+      </div>
       <div class="xl:w-2/12 sm:w-full md:w-full mb-8">
-      <div class=" border border-gray-400 py-1 px-2 mb-4">
+      <div class=" border border-gray-400 py-1 px-2">
         Filtros
       </div>
       <div class="text-[16px] font-thin text-left w-4/12 xl:w-full">
         <div>
           <label class="font-bold">Proyocto</label>
-          <select id="filter1" name="filter1" class="border border-gray-400 w-full pt-1 my-1 sm:bg-smbackcolor"
+          <select id="filter1" name="filter1" class="border border-gray-400 w-full pt-1 my-1"
             :value="selectedFilter1" v-bind:onChange="filter1">
             <option v-for="(item, index) in projectList" :value="index" :key="index">{{ item }}</option>
           </select>
         </div>
         <div>
           <label class="font-bold">Fronto</label>
-          <select id="filter2" name="filter2" class="border border-gray-400 w-full pt-1 my-1 sm:bg-smbackcolor"
+          <select id="filter2" name="filter2" class="border border-gray-400 w-full pt-1 my-1"
             :value="selectedFilter1"  v-bind:onChange="filter1">
             <option v-for="(item, index) in codeproject" :value="index" :key="index">{{ item }}</option>
           </select>
         </div>
         <div>
           <label class="font-bold">Fasa</label>
-          <select id="filter2" name="filter2" class="border border-gray-400 w-full pt-1 my-1 sm:bg-smbackcolor"
+          <select id="filter2" name="filter2" class="border border-gray-400 w-full pt-1 my-1"
             :value="selectedFilter1"  v-bind:onChange="filter1">
             <option v-for="(item, index) in codeproject" :value="index" :key="index">{{ item }}</option>
           </select>
@@ -33,18 +68,18 @@
       </div>
     </div>
     <div class="xl:w-7/12 sm:w-full md:w-full ">
-      <div class=" border border-gray-400 py-1 px-2 mb-4">
+      <div class=" border border-gray-400 py-1 px-2">
         Evolucion Semanal de Cant. Restriciones x Estado
       </div>
       <BarChart2 :tipo=1 :chartData="barData" :chartOptions="barOptions" :periodos=graph2_data :filterHidden=filterHidden
         @emitFilters="updateFilters" @removeFilters="removeFilters" :width="'100%'" :height="'200px'" />
     </div>
     
-    <div class="xl:w-3/12 sm:w-full md:w-full">
-      <!-- <div class=" border border-gray-400 py-1 px-2 mb-4">
-        Leyenda
-      </div> -->
-      <div class="flex gap-2.5">
+    <div class="hidden xl:w-3/12 xl:block sm:w-full md:w-full">
+      <div class="border border-gray-400 py-1 px-2">
+        Leyenda de Colcres
+      </div>
+      <div class="flex gap-2.5 mt-2">
         <div class="w-[80px] h-[15px] bg-[#00e396]"></div>
         <div class="w-[80px] h-[15px] bg-[#00e396]"></div>
         <div class="text-[12px] text-gray-600">
@@ -65,21 +100,18 @@
           Por Iniciar
         </div>
       </div>
-      <div class="border border-gray-400 py-1 px-2 my-2">
-        Indicaciones
-      </div>
       <div class="text-left flex flex-col font-thin text-[14px]" style="width:100%">
-        <div class="flex">
-          1.<div class="pl-2">De click dentro de los graficos para poder filtar en los demas.</div>
+        <div class="black-box">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
         </div>
-        <div class="flex">
-          2.<div class="pl-2">Use los Filtro para elegr el el Proyecto.</div>
+        <div class="black-box mt-2 mb-2">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </div>
       </div>
 
     </div>
   </div>
-  <div class="flex gap-2 text-center flex-col xl:flex-row mt-8">
+  <div class="flex gap-2 text-center flex-col xl:flex-row">
     <div class="xl:w-3/12 sm:w-full md:w-full">
       <div class="border border-gray-400 py-1 mb-4">
         Cant. Restricciones x Estado
@@ -89,7 +121,7 @@
         :height="'250px'" />
     </div>
     <div class="xl:w-5/12 sm:w-full md:w-full">
-      <div class=" border border-gray-400 py-1 px-2 mb-4">
+      <div class=" border border-gray-400 py-1 px-2">
         Cant. Restricciones x Responsables x Estado
       </div>
       <BarChart2 :tipo=3 :chartData="barDatabyResponsable" :chartOptions="barOptions2" :periodos=graph2_data
@@ -97,7 +129,7 @@
         :height="'250px'" />
     </div>
     <div class="xl:w-4/12 sm:w-full md:w-full">
-      <div class=" border border-gray-400 py-1 px-2 mb-4">
+      <div class=" border border-gray-400 py-1 px-2">
         Detalle de Restricciones
       </div>
       <div class="flex h-[35vh] overflow-y-auto">
