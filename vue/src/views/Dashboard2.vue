@@ -2,8 +2,46 @@
   <Breadcrumb :paths="['Inicio']" />
   <slot></slot>
   <div>
-  <div class="flex gap-2 text-center flex-col xl:flex-row">
-      <div class="block xl:w-3/12 xl:hidden sm:w-full md:w-full">
+    <div class="flex gap-2 text-center flex-col xl:flex-row">
+
+      <div class="block align-center gap-2 xl:w-9/12 xl:flex xl:pt-28">
+        <div class="xl:w-2/12 sm:w-full md:w-full xl:mb-0 mb-4">
+          <div class=" border border-gray-400 py-1 px-2">
+            Filtros
+          </div>
+          <div class="text-[14px] font-thin text-left w-4/12 xl:w-full">
+            <div>
+              <label class="font-bold">Proyocto</label>
+              <select id="filter1" name="filter1" class="border border-gray-400 w-full pt-1"
+                :value="selectedFilter1" v-bind:onChange="filter1">
+                <option v-for="(item, index) in projectList" :value="index" :key="index">{{ item }}</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-bold">Fronto</label>
+              <select id="filter2" name="filter2" class="border border-gray-400 w-full pt-1"
+                :value="selectedFilter1"  v-bind:onChange="filter1">
+                <option v-for="(item, index) in codeproject" :value="index" :key="index">{{ item }}</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-bold">Fasa</label>
+              <select id="filter2" name="filter2" class="border border-gray-400 w-full pt-1"
+                :value="selectedFilter1"  v-bind:onChange="filter1">
+                <option v-for="(item, index) in codeproject" :value="index" :key="index">{{ item }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="xl:w-10/12 sm:w-full md:w-full ">
+          <div class=" border border-gray-400 py-1 px-2">
+            Evolucion Semanal de Cant. Restriciones x Estado
+          </div>
+          <BarChart2 :tipo=1 :chartData="barData" :chartOptions="barOptions" :periodos=graph2_data :filterHidden=filterHidden
+            @emitFilters="updateFilters" @removeFilters="removeFilters" :width="'100%'" :height="'185px'" />
+        </div>
+      </div>
+      <div class="xl:w-3/12 sm:w-full md:w-full">
         <div class="border border-gray-400 py-1 px-2">
           Leyenda de Colcres
         </div>
@@ -28,128 +66,58 @@
             Por Iniciar
           </div>
         </div>
-        <div class="text-left flex flex-col font-thin text-[14px]" style="width:100%">
-          <div class="black-box">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        <div class="text-left flex flex-col font-thin text-[14px] mt-2" style="width:100%">
+          <div class="black-box  mb-2 text-black h-[90px]">
+            Lorem ipsum dolor sit amet, conseasdfctetur adipiscing elit. Nemper odio vitae placerat.
           </div>
-          <div class="black-box mt-2 mb-2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <div class="black-box  mb-2 text-black h-[90px]">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nemper odio vitae placerat. 
           </div>
         </div>
 
       </div>
-      <div class="xl:w-2/12 sm:w-full md:w-full mb-8">
-      <div class=" border border-gray-400 py-1 px-2">
-        Filtros
-      </div>
-      <div class="text-[16px] font-thin text-left w-4/12 xl:w-full">
-        <div>
-          <label class="font-bold">Proyocto</label>
-          <select id="filter1" name="filter1" class="border border-gray-400 w-full pt-1 my-1"
-            :value="selectedFilter1" v-bind:onChange="filter1">
-            <option v-for="(item, index) in projectList" :value="index" :key="index">{{ item }}</option>
-          </select>
-        </div>
-        <div>
-          <label class="font-bold">Fronto</label>
-          <select id="filter2" name="filter2" class="border border-gray-400 w-full pt-1 my-1"
-            :value="selectedFilter1"  v-bind:onChange="filter1">
-            <option v-for="(item, index) in codeproject" :value="index" :key="index">{{ item }}</option>
-          </select>
-        </div>
-        <div>
-          <label class="font-bold">Fasa</label>
-          <select id="filter2" name="filter2" class="border border-gray-400 w-full pt-1 my-1"
-            :value="selectedFilter1"  v-bind:onChange="filter1">
-            <option v-for="(item, index) in codeproject" :value="index" :key="index">{{ item }}</option>
-          </select>
-        </div>
+      
+    </div>
 
+    <div class="flex gap-2 text-center flex-col xl:flex-row">
+      <div class="xl:w-3/12 sm:w-full md:w-full">
+        <div class="border border-gray-400 py-1 mt-4 xl:mt-0">
+          Cant. Restricciones x Estado
+        </div>
+        <BarChart2 :tipo=2 :chartData="barDataByState" :chartOptions="barOptionsByState" :periodos=[]
+          :filterHidden=filterHidden @emitFilters="updateFilters" @removeFilters="removeFilters" :width="'200'"
+          :height="'185px'" />
       </div>
-    </div>
-    <div class="xl:w-7/12 sm:w-full md:w-full ">
-      <div class=" border border-gray-400 py-1 px-2">
-        Evolucion Semanal de Cant. Restriciones x Estado
+      <div class="xl:w-5/12 sm:w-full md:w-full">
+        <div class=" border border-gray-400 py-1 px-2 mt-4 xl:mt-0">
+          Cant. Restricciones x Responsables x Estado
+        </div>
+        <BarChart2 :tipo=3 :chartData="barDatabyResponsable" :chartOptions="barOptions2" :periodos=graph2_data
+          :filterHidden=filterHidden @emitFilters="updateFilters" @removeFilters="removeFilters" :width="'400'"
+          :height="'185px'" />
       </div>
-      <BarChart2 :tipo=1 :chartData="barData" :chartOptions="barOptions" :periodos=graph2_data :filterHidden=filterHidden
-        @emitFilters="updateFilters" @removeFilters="removeFilters" :width="'100%'" :height="'200px'" />
-    </div>
-    
-    <div class="hidden xl:w-3/12 xl:block sm:w-full md:w-full">
-      <div class="border border-gray-400 py-1 px-2">
-        Leyenda de Colcres
-      </div>
-      <div class="flex gap-2.5 mt-2">
-        <div class="w-[80px] h-[15px] bg-[#00e396]"></div>
-        <div class="w-[80px] h-[15px] bg-[#00e396]"></div>
-        <div class="text-[12px] text-gray-600">
-          En Proceso
+      <div class="xl:w-4/12 sm:w-full md:w-full">
+        <div class=" border border-gray-400 py-1 px-2">
+          Detalle de Restricciones
+        </div>
+        <div class="flex h-[185px] overflow-y-auto">
+          <table class="w-full text-center m-3">
+            <thead class="bg-gray-200 text-[12px]">
+              <td v-for="value in headerCols" :id="value">{{ value }}</td>
+            </thead>
+            <tbody style="overflow-wrap: anywhere">
+              <tr v-for="(item, index) in rawData" :id="index">
+                <td>{{ item['desActividad'] }}</td>
+                <td>{{ item['desTipoRestriccion'] }}</td>
+                <td>{{ item['desUsuarioResponsable'] }}</td>
+                <td>{{ item['dayFechaRequerida'] }}</td>
+                <td>{{ item['dayFechaIdentificacion'] }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="flex gap-2.5">
-        <div class="w-[80px] h-[15px] bg-[#008ffb]"></div>
-        <div class="w-[80px] h-[15px] bg-[#008ffb]"></div>
-        <div class="text-[12px] text-gray-600">
-          Levantada
-        </div>
-      </div>
-      <div class="flex gap-2.5">
-        <div class="w-[80px] h-[15px] bg-[#feb019]"></div>
-        <div class="w-[80px] h-[15px] bg-[#feb019]"></div>
-        <div class="text-[12px] text-gray-600">
-          Por Iniciar
-        </div>
-      </div>
-      <div class="text-left flex flex-col font-thin text-[14px]" style="width:100%">
-        <div class="black-box">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-        </div>
-        <div class="black-box mt-2 mb-2">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </div>
-      </div>
-
     </div>
-  </div>
-  <div class="flex gap-2 text-center flex-col xl:flex-row">
-    <div class="xl:w-3/12 sm:w-full md:w-full">
-      <div class="border border-gray-400 py-1 mb-4">
-        Cant. Restricciones x Estado
-      </div>
-      <BarChart2 :tipo=2 :chartData="barDataByState" :chartOptions="barOptionsByState" :periodos=[]
-        :filterHidden=filterHidden @emitFilters="updateFilters" @removeFilters="removeFilters" :width="'200'"
-        :height="'250px'" />
-    </div>
-    <div class="xl:w-5/12 sm:w-full md:w-full">
-      <div class=" border border-gray-400 py-1 px-2">
-        Cant. Restricciones x Responsables x Estado
-      </div>
-      <BarChart2 :tipo=3 :chartData="barDatabyResponsable" :chartOptions="barOptions2" :periodos=graph2_data
-        :filterHidden=filterHidden @emitFilters="updateFilters" @removeFilters="removeFilters" :width="'400'"
-        :height="'250px'" />
-    </div>
-    <div class="xl:w-4/12 sm:w-full md:w-full">
-      <div class=" border border-gray-400 py-1 px-2">
-        Detalle de Restricciones
-      </div>
-      <div class="flex h-[35vh] overflow-y-auto">
-        <table class="w-full text-center m-3">
-          <thead class="bg-gray-200 text-[12px]">
-            <td v-for="value in headerCols" :id="value">{{ value }}</td>
-          </thead>
-          <tbody style="overflow-wrap: anywhere">
-            <tr v-for="(item, index) in rawData" :id="index">
-              <td>{{ item['desActividad'] }}</td>
-              <td>{{ item['desTipoRestriccion'] }}</td>
-              <td>{{ item['desUsuarioResponsable'] }}</td>
-              <td>{{ item['dayFechaRequerida'] }}</td>
-              <td>{{ item['dayFechaIdentificacion'] }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
   </div>
 </template>
 
