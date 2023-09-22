@@ -8,14 +8,17 @@
         :openSidebar="statusSidebar"
         @toggleSidebar="toggleSidebar"
         />
-        <div
+        <!-- <div
           class="h-screen pt-10 sm:w-full sm:pt-10 sm:bg-[#F6F8FE] w-full"
         >
           <div class="h-full px-12 sm:px-4 py-8 overflow-y-auto">
             <router-view />
           </div>
+        </div> -->
+        <div class="px-12 sm:px-4 pt-16 overflow-y-auto">
+          <router-view />
         </div>
-      </div>
+      </div>  
   </div>
 </template>
 
