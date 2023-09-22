@@ -44,21 +44,21 @@
       <!-- <div class=" border border-gray-400 py-1 px-2 mb-4">
         Leyenda
       </div> -->
-      <div class="flex justify-between items-center">
+      <div class="flex gap-2.5">
         <div class="w-[80px] h-[15px] bg-[#00e396]"></div>
         <div class="w-[80px] h-[15px] bg-[#00e396]"></div>
         <div class="text-[12px] text-gray-600">
           En Proceso
         </div>
       </div>
-      <div class="flex justify-between items-center">
+      <div class="flex gap-2.5">
         <div class="w-[80px] h-[15px] bg-[#008ffb]"></div>
         <div class="w-[80px] h-[15px] bg-[#008ffb]"></div>
         <div class="text-[12px] text-gray-600">
           Levantada
         </div>
       </div>
-      <div class="flex justify-between items-center">
+      <div class="flex gap-2.5">
         <div class="w-[80px] h-[15px] bg-[#feb019]"></div>
         <div class="w-[80px] h-[15px] bg-[#feb019]"></div>
         <div class="text-[12px] text-gray-600">
