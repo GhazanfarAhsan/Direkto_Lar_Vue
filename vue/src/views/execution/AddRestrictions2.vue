@@ -16,10 +16,22 @@
       :urls ="['home', 'restricciones']"
       :settingFlag="true"
     />
+
+    <!-- <div class="h-[25px] w-[60px]">
+      <FlagSelect v-model="valor_defecto" @change="capturamos_veremos" disabled="true" />
+    </div> -->
+
     <br>
+
+
 
     <div class="flex flex-col">
       <div class="flex justify-start"  v-if="!fullScreen">
+
+
+
+
+
       <!-- <div @click="mverificamos"> hacer clicks para probar</div> -->
       <div class="flex justify-between space-x-4">
         <!-- Primer bloque - Indicador principal en Card -->
@@ -76,6 +88,14 @@
     <!-- Aquí puedes agregar los dos indicadores adicionales siguiendo el formato anterior -->
   </div>
 </div>
+
+
+
+
+
+
+
+
     </div>
 
       <br>
@@ -2185,7 +2205,17 @@ export default {
             let diferenciaDias = Math.round((dayFechaRequerida - fechaLevantamiento) / (1000 * 60 * 60 * 24));
             totalDias += diferenciaDias;
             contador++;
+          // }else{
 
+          //   if (item.dayFechaLevantamiento && item.dayFechaIdentificacion && item.codAreaRestriccion == this.areaUsuario && !(this.rolProyecto == 3 || this.rolProyecto == 0) ) {
+
+          //     let fechaLevantamiento = new Date(item.dayFechaLevantamiento);
+          //     let fechaIdentificacion = new Date(item.dayFechaIdentificacion);
+          //     let diferenciaDias = Math.round((fechaLevantamiento - fechaIdentificacion) / (1000 * 60 * 60 * 24));
+          //     totalDias += diferenciaDias;
+          //     contador++;
+
+          //   }
           }
         });
       });
