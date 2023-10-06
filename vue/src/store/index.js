@@ -677,6 +677,31 @@ const store = createStore({
         return(res.data)
       })
     },
+
+    get_datos_project_indicators({commit}){
+
+      const anaresdata = { coduser: sessionStorage.getItem('Id') }
+      return axiosClient.post('get_project_indicators', anaresdata);
+
+    },
+
+    get_datos_project_indicators({commit}){
+
+      const anaresdata = { coduser: sessionStorage.getItem('Id') }
+      return axiosClient.post('get_project_indicators', anaresdata);
+
+    },
+
+
+    get_data_restricciones_indicators({commit}, data){
+      // const anaresdata = { id: sessionStorage.getItem('constraintid') }
+      const anaredata = {
+        codProyecto: data.codProyecto
+      }
+      return axiosClient.post('get_data_restricciones_indicators', anaredata)
+    },
+
+
     report_restrictions_for_project({commit}){
       const data = { id: sessionStorage.getItem('constraintid') }
       // let params = { from: this.from, to: this.to };
@@ -1255,6 +1280,7 @@ const store = createStore({
         data: projectData.desTipoProyecto === 'Abierto' ? true:false,
         projectName: projectData.desNombreProyecto,
         isInvitado : projectData.isInvitado,
+        rol : projectData.rol,
         codEstado  : projectData.codEstado,
         restriction: {
           delayed: 60,

@@ -16,22 +16,10 @@
       :urls ="['home', 'restricciones']"
       :settingFlag="true"
     />
-
-    <!-- <div class="h-[25px] w-[60px]">
-      <FlagSelect v-model="valor_defecto" @change="capturamos_veremos" disabled="true" />
-    </div> -->
-
     <br>
-
-
 
     <div class="flex flex-col">
       <div class="flex justify-start"  v-if="!fullScreen">
-
-
-
-
-
       <!-- <div @click="mverificamos"> hacer clicks para probar</div> -->
       <div class="flex justify-between space-x-4">
         <!-- Primer bloque - Indicador principal en Card -->
@@ -88,14 +76,6 @@
     <!-- Aquí puedes agregar los dos indicadores adicionales siguiendo el formato anterior -->
   </div>
 </div>
-
-
-
-
-
-
-
-
     </div>
 
       <br>
@@ -158,6 +138,22 @@
           >
           <i class="fas fa-envelope"></i> Enviar Correos
           <span class="badge absolute top-[-2] right-[-4] h-4 w-4 bg-red400-500 rounded-full text-white text-center text-tinysm min-w-[10px]" >{{countNotNoti}}</span>
+        </button>
+
+
+        <button
+          class="ml-1 bg-white w-[18%] sm:w-[25%] h-[30px] text-[0.6rem] hover:bg-gray-100 px-2 py-1 border border-orange rounded shadow text-orange relative"
+          @mouseover="hoverEffect" @mouseleave="removeHoverEffect"
+          @click="openModal({ param: 'enviarNoti' })"
+          :disabled="disabledItemsEnviarCorreos"
+          :class="{
+                'border-orange': !disabledItemsEnviarCorreos,
+                'border-[#DCE4F9]': disabledItemsEnviarCorreos,
+              }"
+
+          >
+          <i class="fas fa-calendar"></i> Calendario Sem.
+          <span class="badge absolute top-[-2] right-[-4] h-5 w-5 bg-red400-500 rounded-full text-white text-center text-tinysm min-w-[10px] text-[0.7rem]" >New</span>
         </button>
 
       </div>
@@ -2189,17 +2185,7 @@ export default {
             let diferenciaDias = Math.round((dayFechaRequerida - fechaLevantamiento) / (1000 * 60 * 60 * 24));
             totalDias += diferenciaDias;
             contador++;
-          // }else{
 
-          //   if (item.dayFechaLevantamiento && item.dayFechaIdentificacion && item.codAreaRestriccion == this.areaUsuario && !(this.rolProyecto == 3 || this.rolProyecto == 0) ) {
-
-          //     let fechaLevantamiento = new Date(item.dayFechaLevantamiento);
-          //     let fechaIdentificacion = new Date(item.dayFechaIdentificacion);
-          //     let diferenciaDias = Math.round((fechaLevantamiento - fechaIdentificacion) / (1000 * 60 * 60 * 24));
-          //     totalDias += diferenciaDias;
-          //     contador++;
-
-          //   }
           }
         });
       });

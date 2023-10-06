@@ -2,9 +2,9 @@
     width: 15%;
 }
 
-/* .text-left:nth-child(2){
+.text-left:nth-child(2){
     width: 15%;
-} */
+}
 
 .text-left:nth-child(3){
     width: 15%;
@@ -31,17 +31,4 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.black-box{
-    background-color: #000000;
-    padding: 1rem;
-    color: aliceblue;
-}
-
-@media (max-width: 750px){
-    .sm\:content-phoneLogo {
-        --tw-content: url(src/assets/logo.png) !important;
-        content: var(--tw-content);
-    }
 }
