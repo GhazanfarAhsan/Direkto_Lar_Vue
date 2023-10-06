@@ -225,6 +225,12 @@ export default {
       this.$emit('updalidarUpd', data);
 
     }
+
+
+
+
+
+
   },
 
 };
