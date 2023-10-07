@@ -144,7 +144,7 @@
         <button
           class="ml-1 bg-white w-[18%] sm:w-[25%] h-[30px] text-[0.6rem] hover:bg-gray-100 px-2 py-1 border border-orange rounded shadow text-orange relative"
           @mouseover="hoverEffect" @mouseleave="removeHoverEffect"
-          @click="openModal({ param: 'enviarNoti' })"
+          @click="openModal({ param: 'calendarDg' })"
           :disabled="disabledItemsEnviarCorreos"
           :class="{
                 'border-orange': !disabledItemsEnviarCorreos,
@@ -560,6 +560,10 @@
       @closeModal="closeModal"
       @confirmStatus="enviarNotificaciones"
     />
+    <CalendarDg
+      v-if="modalName === 'calendarDg' && countNotNoti > '0'"
+      @closeModal="closeModal"
+    />
   </div>
 </template>
 
@@ -584,6 +588,7 @@ import AddRow from "../../components/AddRow.vue";
 import DeleteRow from "../../components/DeleteRow.vue";
 import UploadExcel from "../../components/UploadExcel.vue";
 import ConfirmBloq from "../../components/ConfirmBloq.vue";
+import CalendarDg from "../../components/CalendarDg.vue";
 // import DownloadReport from "../../components/DownloadReport.vue";
 import SelectOption from "../../components/SelectOption.vue";
 import DeleteFront from "../../components/DeleteFront.vue";
@@ -609,6 +614,7 @@ export default {
     DeleteFront,
     UploadExcel,
     ConfirmBloq,
+    CalendarDg,
     // ScrollTableRow,
     // RestrictionPerson,
 
@@ -1116,7 +1122,6 @@ export default {
       console.log(payload.restrictions)
     },
     openModal: function (param) {
-      // console.log(param)
       if (typeof param !== "string") {
         if (param.param != "duplicateRow") {
           this.frontId =
@@ -1125,20 +1130,14 @@ export default {
             typeof param.phaseId !== "undefined" ? param.phaseId : "";
           this.exercise =
             typeof param.exercise !== "undefined" ? param.exercise : "";
-
           param = param.param;
-          if ((param == 'enviarNoti')){
-
+          if (param == 'enviarNoti') {
             this.modalName = this.countNotNoti > '0' ?  param : '';
-
-          }else{
-
+          } else if (param == 'calendarDg') {
+            this.modalName = this.countNotNoti > '0' ?  param : '';
+          } else {
             this.modalName = param
-
           }
-
-
-
         } else {
           this.duplicateRow(param);
         }
