@@ -16,22 +16,10 @@
       :urls ="['home', 'restricciones']"
       :settingFlag="true"
     />
-
-    <!-- <div class="h-[25px] w-[60px]">
-      <FlagSelect v-model="valor_defecto" @change="capturamos_veremos" disabled="true" />
-    </div> -->
-
     <br>
-
-
 
     <div class="flex flex-col">
       <div class="flex justify-start"  v-if="!fullScreen">
-
-
-
-
-
       <!-- <div @click="mverificamos"> hacer clicks para probar</div> -->
       <div class="flex justify-between space-x-4">
         <!-- Primer bloque - Indicador principal en Card -->
@@ -88,14 +76,6 @@
     <!-- Aquí puedes agregar los dos indicadores adicionales siguiendo el formato anterior -->
   </div>
 </div>
-
-
-
-
-
-
-
-
     </div>
 
       <br>
@@ -164,7 +144,7 @@
         <button
           class="ml-1 bg-white w-[18%] sm:w-[25%] h-[30px] text-[0.6rem] hover:bg-gray-100 px-2 py-1 border border-orange rounded shadow text-orange relative"
           @mouseover="hoverEffect" @mouseleave="removeHoverEffect"
-          @click="openModal({ param: 'enviarNoti' })"
+          @click="openModal({ param: 'calendarDg' })"
           :disabled="disabledItemsEnviarCorreos"
           :class="{
                 'border-orange': !disabledItemsEnviarCorreos,
@@ -580,6 +560,10 @@
       @closeModal="closeModal"
       @confirmStatus="enviarNotificaciones"
     />
+    <CalendarDg
+      v-if="modalName === 'calendarDg' && countNotNoti > '0'"
+      @closeModal="closeModal"
+    />
   </div>
 </template>
 
@@ -604,6 +588,7 @@ import AddRow from "../../components/AddRow.vue";
 import DeleteRow from "../../components/DeleteRow.vue";
 import UploadExcel from "../../components/UploadExcel.vue";
 import ConfirmBloq from "../../components/ConfirmBloq.vue";
+import CalendarDg from "../../components/CalendarDg.vue";
 // import DownloadReport from "../../components/DownloadReport.vue";
 import SelectOption from "../../components/SelectOption.vue";
 import DeleteFront from "../../components/DeleteFront.vue";
@@ -629,6 +614,7 @@ export default {
     DeleteFront,
     UploadExcel,
     ConfirmBloq,
+    CalendarDg,
     // ScrollTableRow,
     // RestrictionPerson,
 
@@ -1136,7 +1122,6 @@ export default {
       console.log(payload.restrictions)
     },
     openModal: function (param) {
-      // console.log(param)
       if (typeof param !== "string") {
         if (param.param != "duplicateRow") {
           this.frontId =
@@ -1145,20 +1130,14 @@ export default {
             typeof param.phaseId !== "undefined" ? param.phaseId : "";
           this.exercise =
             typeof param.exercise !== "undefined" ? param.exercise : "";
-
           param = param.param;
-          if ((param == 'enviarNoti')){
-
+          if (param == 'enviarNoti') {
             this.modalName = this.countNotNoti > '0' ?  param : '';
-
-          }else{
-
+          } else if (param == 'calendarDg') {
+            this.modalName = this.countNotNoti > '0' ?  param : '';
+          } else {
             this.modalName = param
-
           }
-
-
-
         } else {
           this.duplicateRow(param);
         }
@@ -2205,17 +2184,7 @@ export default {
             let diferenciaDias = Math.round((dayFechaRequerida - fechaLevantamiento) / (1000 * 60 * 60 * 24));
             totalDias += diferenciaDias;
             contador++;
-          // }else{
 
-          //   if (item.dayFechaLevantamiento && item.dayFechaIdentificacion && item.codAreaRestriccion == this.areaUsuario && !(this.rolProyecto == 3 || this.rolProyecto == 0) ) {
-
-          //     let fechaLevantamiento = new Date(item.dayFechaLevantamiento);
-          //     let fechaIdentificacion = new Date(item.dayFechaIdentificacion);
-          //     let diferenciaDias = Math.round((fechaLevantamiento - fechaIdentificacion) / (1000 * 60 * 60 * 24));
-          //     totalDias += diferenciaDias;
-          //     contador++;
-
-          //   }
           }
         });
       });
