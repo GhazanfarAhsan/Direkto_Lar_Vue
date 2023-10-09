@@ -21,21 +21,14 @@
           <span>{{ '< Nov 05/23 - Nov 11/23 >' }}</span>
         </div>
       </div>
-      <div class="grid gap-1 grid-flow-col overflow-x-auto overflow-y-hidden border-double br-gray-600 border-b-4 border-t-4 h-[600px] text-base text">
+      <div class="grid gap-1 grid-flow-col overflow-x-auto border-double br-gray-600 border-b-4 border-t-4 h-[600px] text-base text">
         <!-- retrasados pannels start -->
         <div class="grid grid-cols-1 w-[278px] px-2 pt-5 bg-red-100">
           <div class="border-2 border-red-500 rounded grid items-center justify-center mt-3 mb-2 h-[30px] text-sm"><span class="w-full">{{ 'Retrasadas Actividades ' }} <i class="fa fa-warning text-red-600 pl-2"></i></span></div>
           <div>
-            <div class="border border-red-500 hover:border-2 rounded text-xs mb-1 py-1 px-3" v-for="item in rawDataInicial.retrasados.slice(0, 3)" :key="item.index">
-              <div class="text-sm text-gray-800 leading-none">{{ 'Conclllar reunion con junta de propletarioe y notaria' }}</div>
-              <div class="text-gray-400 text-xs">{{ item.estado }}</div>
-              <div class="text-gray-400 text-xs">{{ item.responsable }}</div>
-              <div class="text-gray-400 text-xs">{{ item.desActividad }}</div>
-              <div class="text-gray-400 text-xs">{{ item.desTipoRestriccion }}</div>
-              <div class="pt-1">
-                <Dropdown :state="item.state" :active="item.active" class="inline cursor-pointer"></Dropdown>
-                <span class="text-red-500 text-[0.5rem] float-right mt-1"> {{ 'r. Conciliada: ' + item.dayFechaConciliada }}</span>
-              </div>
+            <div v-for="item in rawDataInicial.retrasados.slice(0, 3)" :key="item.index">
+              <Card :item="item"></Card>
+              <span class="text-red-500 text-[0.5rem] float-right mt-[-20px] mr-2"> {{ 'r. Conciliada: ' + item.dayFechaConciliada }}</span>
             </div>
           </div>
           <div v-if="rawDataInicial.retrasados.length > 3" class="text-center text-red-400 text-sm">
@@ -58,51 +51,21 @@
               <div v-if="card == 'day1'" class="text-center text-red-400 text-sm">
                 <i class="fa fa-minus mx-2"></i>{{ 'Actividades Retrasadas' }}<i class="fa fa-minus mx-2"></i>
               </div>
-              <div class="border rounded text-xs mb-1 py-1 px-3 border-red-500 hover:border-2" v-for="item in rawDataInicial[card].filter(el => el.state == 'Pendiente' && el.active == true)" :key="item.index">
-                <div class="text-sm text-gray-800 leading-none">{{ 'Conclllar reunion con junta de propletarioe y notaria' }}</div>
-                <div v-if="item.state != 'Completa'">
-                  <div class="text-gray-400 text-xs">{{ item.estado }}</div>
-                  <div class="text-gray-400 text-xs">{{ item.responsable }}</div>
-                  <div class="text-gray-400 text-xs">{{ item.desActividad }}</div>
-                  <div class="text-gray-400 text-xs">{{ item.desTipoRestriccion }}</div>
-                </div>
-                <div class="pt-1">
-                  <Dropdown :state="item.state" :active="item.active" class="inline cursor-pointer"></Dropdown>
-                </div>
+              <div v-for="item in rawDataInicial[card].filter(el => el.state == 'Pendiente' && el.active == true)" :key="item.index">
+                <Card :item="item"></Card>
               </div>
-              <div class="border rounded text-xs mb-1 py-1 px-3 border-[#e5690e] hover:border-2" v-for="item in rawDataInicial[card].filter(el => el.state == 'Proceso')" :key="item.index">
-                <div class="text-sm text-gray-800 leading-none">{{ 'Conclllar reunion con junta de propletarioe y notaria' }}</div>
-                <div v-if="item.state != 'Completa'">
-                  <div class="text-gray-400 text-xs">{{ item.estado }}</div>
-                  <div class="text-gray-400 text-xs">{{ item.responsable }}</div>
-                  <div class="text-gray-400 text-xs">{{ item.desActividad }}</div>
-                  <div class="text-gray-400 text-xs">{{ item.desTipoRestriccion }}</div>
-                </div>
-                <div class="pt-1">
-                  <Dropdown :state="item.state" :active="item.active" class="inline cursor-pointer"></Dropdown>
-                </div>
+              <div v-for="item in rawDataInicial[card].filter(el => el.state == 'Proceso')" :key="item.index">
+                <Card :item="item"></Card>
               </div>
               <div v-if="card == 'day1' || card == 'day2'" class="text-center text-[#47ab24] text-sm">
                 <i class="fa fa-minus mx-2"></i>{{ "Actividades Completadas" }}<i class="fa fa-minus mx-2"></i>
               </div>
-              <div class="border rounded text-xs mb-1 py-1 px-3 border-[#47ab24] hover:border-2" v-for="item in rawDataInicial[card].filter(el => el.state == 'Completa')" :key="item.index">
-                <div class="text-sm text-gray-800 leading-none">{{ 'Conclllar reunion con junta de propletarioe y notaria' }}</div>
-                <div class="pt-1">
-                  <Dropdown :state="item.state" :active="item.active" class="inline cursor-pointer"></Dropdown>
-                  <span class="text-gray-400 text-[0.5rem] float-right mt-1"> {{ 'r. Marcel: ' + item.dayFechaConciliada }}</span>
-                </div>
+              <div v-for="item in rawDataInicial[card].filter(el => el.state == 'Completa')" :key="item.index">
+                <Card :item="item"></Card>
+                <span class="text-gray-400 text-[0.5rem] float-right mt-[-20px] mr-2"> {{ 'r. Marcel: ' + item.dayFechaConciliada }}</span>
               </div>
-              <div class="border rounded text-xs mb-1 py-1 px-3 border-gray-600 hover:border-2 hover:border-blue-500" v-for="item in rawDataInicial[card].filter(el => el.state == 'Pendiente' && el.active == false)" :key="item.index">
-                <div class="text-sm text-gray-800 leading-none">{{ 'Conclllar reunion con junta de propletarioe y notaria' }}</div>
-                <div>
-                  <div class="text-gray-400 text-xs">{{ item.estado }}</div>
-                  <div class="text-gray-400 text-xs">{{ item.responsable }}</div>
-                  <div class="text-gray-400 text-xs">{{ item.desActividad }}</div>
-                  <div class="text-gray-400 text-xs">{{ item.desTipoRestriccion }}</div>
-                </div>
-                <div class="pt-1">
-                  <Dropdown :state="item.state" :active="item.active" class="inline cursor-pointer"></Dropdown>
-                </div>
+              <div v-for="item in rawDataInicial[card].filter(el => el.state == 'Pendiente' && el.active == false)" :key="item.index">
+                <Card :item="item"></Card>
               </div>
             </div>
             <button class="bg-gray-600 text-white w-full rounded my-3 h-[30px]">Var mas...</button>
@@ -115,7 +78,7 @@
 </template>
 
 <script>
-import Dropdown from './Dropdown.vue';
+import Card from './Card.vue';
 
 export default {
   name: "success-component",
@@ -123,7 +86,7 @@ export default {
 
   },
   components: {
-    Dropdown,
+    Card,
   },
   data: function () {
     return {
