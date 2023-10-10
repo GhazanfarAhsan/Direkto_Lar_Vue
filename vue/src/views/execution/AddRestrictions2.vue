@@ -580,8 +580,6 @@ import Breadcrumb from "../../components/Layout/Breadcrumb.vue";
 import AddFront from "../../components/AddFront.vue";
 import AddPhase from "../../components/AddPhase.vue";
 import DataTableRestricciones from "../../components/DataTableRestricciones.vue";
-// import DataTableRestriccionesRow from "../../components/DataTableRestriccionesRow.vue";
-// import RestrictionPerson from "../../components/RestrictionPerson.vue";
 
 import ToggleColumn from "../../components/ToggleColumn.vue";
 import AddRow from "../../components/AddRow.vue";
@@ -608,17 +606,12 @@ export default {
     AddFront,
     AddPhase,
     DataTableRestricciones,
-    // DataTableRestriccionesRow,
     AddRow,
     DeleteRow,
     DeleteFront,
     UploadExcel,
     ConfirmBloq,
     CalendarDg,
-    // ScrollTableRow,
-    // RestrictionPerson,
-
-    // DownloadReport,
     SelectOption,
     ToggleColumn,
     AddRowData,

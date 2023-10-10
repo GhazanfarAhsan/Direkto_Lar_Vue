@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-screen bg-modal flex items-center justify-center modal-background fixed top-0 left-0 z-40">
-    <div class="w-[95%] sm:w-[296px] rounded-2xl bg-white absolute p-16 sm:px-3 sm:py-3 overflow-auto max-h-[750px] justify-between">
+    <div class="w-[95%] sm:w-[296px] rounded-2xl bg-white absolute p-16 sm:px-3 sm:py-3 overflow-y-auto">
       <img
         src="../assets/modal-close.svg"
         alt=""
@@ -21,7 +21,7 @@
           <span>{{ '< Nov 05/23 - Nov 11/23 >' }}</span>
         </div>
       </div>
-      <div class="grid gap-1 grid-flow-col overflow-x-auto border-double br-gray-600 border-b-4 border-t-4 h-[600px] text-base text">
+      <div :class="toggle ? 'overflow-x-auto' : 'overflow-hidden'" class="grid gap-1 grid-flow-col border-double br-gray-600 border-b-4 border-t-4 text-base text">
         <!-- retrasados pannels start -->
         <div class="grid grid-cols-1 w-[278px] px-2 pt-5 bg-red-100">
           <div class="border-2 border-red-500 rounded grid items-center justify-center mt-3 mb-2 h-[30px] text-sm"><span class="w-full">{{ 'Retrasadas Actividades ' }} <i class="fa fa-warning text-red-600 pl-2"></i></span></div>
@@ -34,15 +34,15 @@
           <div v-if="rawDataInicial.retrasados.length > 3" class="text-center text-red-400 text-sm">
             <i class="fa fa-minus mx-2"></i>{{ rawDataInicial.retrasados.length + "Retrasadas Actividades mas" }}<i class="fa fa-minus mx-2"></i>
           </div>
-          <button class="bg-red-500 text-white w-full rounded my-3 h-[30px]">Var mas...</button>
+          <button class="bg-red-500 text-white w-full rounded h-[30px]" @click="toggleScroll">Var mas...</button>
         </div>
         <!-- retrasados pannels end -->
 
         <!-- date pannels start -->
-        <div v-for="card in Object.keys(rawDataInicial).slice(1, 8)" :key="card.index" class="grid grid-cols-1 w-[278px] px-2 pt-5">
-          <div :class="card == 'day2' ? 'bg-blue-100' : 'bg-gray-100'" class="grid h-[550px] content-between">
+        <div v-for="card in Object.keys(rawDataInicial).slice(1, 8)" :key="card.index" class="grid grid-cols-1 w-[278px] px-2 pt-5 items-start">
+          <div :class="card == 'day2' ? 'bg-blue-100' : 'bg-gray-100'" class="grid">
             <div 
-              class="border rounded grid items-center justify-center mt-3 mb-2 h-[30px]"
+              class="border rounded grid items-center align-center mt-3 mb-2 h-[30px]"
               :class="card == 'day2' ? 'border-blue-500 border-2' : 'border-gray-600'"
             >
               <span class="w-full text-sm">{{ 'Jueves 07/10/23' }} <img v-if="card == 'day2'" src='../assets/calendar-edit.png' class="inline h-[18px] w-[18px]"/></span>
@@ -135,9 +135,15 @@ export default {
           {id: 27, codProyecto: 10, codAnaResFrente : 2 , desAnaResFrente : 'Frente Nuevo 002', codAnaResFase : 3, desAnaResFase : 'Fase 002' , dayFechaRequerida: '2023/02/10', dayFechaIdentificacion: '2023/02/01' , codEstadoActividad:2,estado: 'Comp.Plazo', codresponsable : 3, responsable : 'Juan Perez', desActividad : 'Cimentacion', desTipoRestriccion: 'Construccion', dayFechaConciliada: '2020/10/12', dayFechaLevantamiento: '2020/10/12', state: 'Pendiente', active: false},
           {id: 28, codProyecto: 11, codAnaResFrente : 3 , desAnaResFrente : 'Frente Modificado', codAnaResFase : 4, desAnaResFase : 'Fase Modificado' , dayFechaRequerida: '2023/02/10', dayFechaIdentificacion: '2023/02/01' , codEstadoActividad:2, estado: 'Comp.Plazo', codresponsable : 2, responsable : 'Javier Melendez', desActividad : 'Cimentacion', desTipoRestriccion: 'Construccion', dayFechaConciliada: '2020/10/12', dayFechaLevantamiento: '2020/10/12', state: 'Pendiente', active: false},
         ],
-      }
+      },
+      toggle: false,
     };
   },
+  methods: {
+    toggleScroll() {
+      this.toggle = !this.toggle;
+    }
+  }
 };
 </script>
 
