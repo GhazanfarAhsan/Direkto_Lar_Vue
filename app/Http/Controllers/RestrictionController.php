@@ -24,6 +24,27 @@ use Carbon\Carbon;
 
 class RestrictionController extends Controller
 {
+
+    public function get_date_dummy(Request $request){
+
+        return array("nada", 1);
+    }
+
+    public function get_week_restrictions_by_date(Request $request){
+
+        $enviar            = array();
+        $datos_estado      = Conf_Estado::where('desModulo', 'ANARES')->get();
+        $fecha             = $request['fecha'];
+        $proyecto          = $request['codProyecto'];
+        $results           = DB::select('call PR_restriccionesxproyectofecha(?,?)', [$fecha, $proyecto]);
+
+
+        $enviar['estados']       = $datos_estado;
+        $enviar['restricciones'] = $results;
+
+        return $enviar;
+    }
+
     public function get_restriction(Request $request) {
         $data = array();
         $query_restriction = "
@@ -47,13 +68,15 @@ class RestrictionController extends Controller
         from (
         select
         ad.codProyecto , ad.codEstado , ad.dayFechaCreacion , ad.desUsuarioCreacion,
-        ad.codAnaRes, ad.desColOcultas, ad.desnombreproyecto , min(ad.isInvitado) as isInvitado
+        ad.codAnaRes, ad.desColOcultas, ad.desnombreproyecto , min(ad.isInvitado) as isInvitado,
+        max(ad.rol) as rol
 
         from (
         select
         ar.*,
         pp.desNombreProyecto as desnombreproyecto,
-        0 as isInvitado
+        0 as isInvitado,
+        3 as rol
         from anares_analisisrestricciones  ar
         inner join proy_proyecto pp  on ar.codProyecto  = pp.codProyecto
         where
@@ -64,7 +87,8 @@ class RestrictionController extends Controller
         select
         ar.*,
         pp.desNombreProyecto as desnombreproyecto,
-        1 as isInvitado
+        1 as isInvitado,
+        pi2.codRolIntegrante as rol
         from anares_analisisrestricciones  ar
         inner join proy_proyecto pp  on ar.codProyecto  = pp.codProyecto
         inner join proy_integrantes pi2 on ar.codProyecto  = pi2.codProyecto
@@ -76,7 +100,6 @@ class RestrictionController extends Controller
         group BY ad.codProyecto , ad.codEstado , ad.dayFechaCreacion , ad.desUsuarioCreacion ,ad.indNoRetrasados,ad.indRetrasados,
         ad.codAnaRes, ad.desColOcultas, ad.desnombreproyecto
         ) fin
-
 
         ";
         $valores      = array($request['id'],$request['id']);
@@ -102,19 +125,20 @@ class RestrictionController extends Controller
                 'indNoRetrasados'  => $eachdata['indNoRetrasados'],
                 'indRetrasados'    => $eachdata['indRetrasados'],
                 'codAnaRes'        => $eachdata['codAnaRes'],
-                'isInvitado'        => $eachdata['isInvitado'],
+                'isInvitado'       => $eachdata['isInvitado'],
+                'rol'              => $eachdata['rol'],
                 'integrantes'      => [],
                 'integrantesProy'  => []
             ];
 
             // $members = RestrictionMember::where('codAnaRes', $eachdata['codAnaRes']);
-            $integrantes = RestrictionMember::select("ana_integrantes.*", "proy_integrantes.desCorreo as desProyIntegrante")
-            ->Join('proy_integrantes', function($join){
-                $join->on('proy_integrantes.codProyIntegrante', '=', 'ana_integrantes.codProyIntegrante');
-                $join->on('proy_integrantes.codProyecto', '=', 'ana_integrantes.codProyecto');
+            $integrantes = RestrictionMember::select("ana_integrantes.*")
+            // ->Join('proy_integrantes', function($join){
+            //     $join->on('proy_integrantes.codProyIntegrante', '=', 'ana_integrantes.codProyIntegrante');
+            //     $join->on('proy_integrantes.codProyecto', '=', 'ana_integrantes.codProyecto');
 
-            })
-            ->where('ana_integrantes.codAnaRes', $eachdata['codAnaRes'])->get();
+            // })
+            ->where('ana_integrantes.codProyecto', $eachdata['codProyecto'])->get();
 
             $integrantes_Proy = ProjectUser::where('codProyecto', $eachdata['codProyecto'])->get();
 
@@ -304,8 +328,6 @@ class RestrictionController extends Controller
         ]);
         return $request;
     }
-
-
 
     public function cron_enviar_notificacionDiaria(){
         $query_proyectos_retrasados = "
@@ -800,7 +822,7 @@ class RestrictionController extends Controller
 
         $tipoRestricciones = Ana_TipoRestricciones::All();
         $areaIntegrante    = Proy_AreaIntegrante::all();
-        $datos_estado = Conf_Estado::where('desModulo', 'ANARES')->get();
+        $datos_estado      = Conf_Estado::where('desModulo', 'ANARES')->get();
 
         $enviar['estadoRestriccion'] = $restriction[0]['codEstado'] == 0 ? true : false;
         $enviar['estados']           = $datos_estado;
