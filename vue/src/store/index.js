@@ -474,8 +474,8 @@ const store = createStore({
     },
     getCalendarDgData({commit}){
       const project_id = sessionStorage.getItem('constraintid'); 
-      const date = new Date();
-      return axiosClient.get('/get_week_restrictions_by_date?fetch='+date+'&codProyecto='+project_id)
+      const date = new Date('y-m-d');
+      return axiosClient.post('/get_week_restrictions_by_date?fetch='+date+'&codProyecto='+project_id)
       .then(res => {
         console.log(res);
         commit('setCalenderDgData', res.data)
