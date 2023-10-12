@@ -79,7 +79,7 @@
 
 <script>
 import Card from './Card.vue';
-
+import store from "../store";
 export default {
   name: "success-component",
   props: {
@@ -137,11 +137,22 @@ export default {
         ],
       },
       toggle: false,
+      calenderdg:{}
     };
+  },
+  mounted:function(){
+      this.getData();
   },
   methods: {
     toggleScroll() {
       this.toggle = !this.toggle;
+    },
+    async getData(){
+        await store.dispatch('getCalendarDgData').then((response)=> {
+          console.log(response);
+        }).catch((error)=> {
+          console.log(error);
+        })
     }
   }
 };

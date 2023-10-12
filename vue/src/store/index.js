@@ -105,6 +105,7 @@ const store = createStore({
     createStatus: false,
     cargos:[],
     tiposproyectos:[],
+    calenderDgArray:[],
     ubigeos:[
     {
       "codUbigeo":0,
@@ -189,6 +190,9 @@ const store = createStore({
     },
     getWhiteprojectRows: (state) => {
       return state.whiteproject_rows;
+    },
+    getCalanderDgRecords: (state) => {
+      return state.calenderDgArray
     },
     // hideCols: (state) => (payload) => {
     //   const row = state.whiteproject_rows.find((row) => row.id === payload.id);
@@ -466,6 +470,15 @@ const store = createStore({
       .then(res => {
         console.log(res);
         commit('setUser', res.data)
+      })
+    },
+    getCalendarDgData({commit}){
+      const project_id = sessionStorage.getItem('constraintid'); 
+      const date = new Date();
+      return axiosClient.get('/get_week_restrictions_by_date?fetch='+date+'&codProyecto='+project_id)
+      .then(res => {
+        console.log(res);
+        commit('setCalenderDgData', res.data)
       })
     },
     get_restrictions({commit}) {
@@ -1187,6 +1200,9 @@ const store = createStore({
       state.user.data = user;
       sessionStorage.setItem('Id', user.id);
       sessionStorage.setItem('Name', user.name+" "+user.lastname);
+    },
+    setCalenderDgData: (state,record) => {
+      state.calenderDgArray.data = record;
     },
 
     setToken: (state, token) => {
